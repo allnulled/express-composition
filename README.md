@@ -22,6 +22,7 @@ The order of the utilities is from most abstract to least, so parent classes com
 
 The following examples use [`chai`](https://github.com/chaijs/chai) to demonstrate the usage of the utilities listed.
 
+When you see `require(__dirname + "/../src/index.js")`, you have to think about it as `require("express-composition")`.
 
 
 ### `Composable`
@@ -29,12 +30,6 @@ The following examples use [`chai`](https://github.com/chaijs/chai) to demonstra
 This class makes the first argument of its constructor to be an object that overrides the properties and methods of the created instance.
 
 Class thought to be extended.
-
-The following examples can be found at [examples folder](https://github.com/allnulled/express-composition/tree/master/example).
-
-The following examples will use [`chai`]() for assertions to demonstrate how these utilities work.
-
-When you see `require(__dirname + "/../src/index.js")`, you have to think about it as `require("express-composition")`.
 
 #### Code example
 

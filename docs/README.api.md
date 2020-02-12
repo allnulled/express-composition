@@ -81,70 +81,6 @@
 
 
 
-------------------
-
-## `Composable`
-
-
-**Type**:  *Class. Function.*
-
-
-**Description**:  Class to provide an easy, fast and standard way to extend classes.
-
-
-
-
---------------------
-
-### `Composable.DEFAULT_OPTIONS`
-
-
-
-**Type**:  `Static class property. Object.`
-
-
-**Description**:  Holds the common values that will override properties and methods of each instance, by default. It is an empty object by default.
-
-
-
-
---------------------
-
-### `Composable.create`
-
-
-**Type**:  `Static class method. Function.`
-
-
-**Returns**:  `composable:Object`
-
-
-**Description**:  Returns a new instance of the class. This static method is mainly to avoid using the `new` keyword in our code. It passes the same arguments of the `create` to the `constructor`, and returns the created instance.
-
-
-
-
--------------------.
-
-### `composable.constructor`
-
-
-**Type**:  `Class constructor. Function.`
-
-
-**Parameter**:  
-
-
- - `options:Object`. Properties and methods that should be implemented by the instances that this class produces.
-
-
-**Description**:  Overrides properties and methods of current instance by, in this order:
-  - `this.constructor.DEFAULT_OPTIONS:Object`. The static property.
-  - `options:Object`. The received object.
-
-
-
-
 ----------------------
 
 ## `CommonUtilities`
@@ -301,188 +237,6 @@
 
 
 **Description**:  This method, when overriden (it must be overriden), should mount the controller, the `router` property and the `middleware` property into the `application`.
-
-
-
-
-----------------
-
-## `DownloadFile`
-
-
-**Type**:  *Class. Function.*
-
-
-**Description**:  Represents a controller that downloads a specified file.
-
-
-
-
-----------------
-
-### `DownloadFile.CONTROLLER_ID`
-
-
-**Type**:  *Static class property. String.*
-
-
-**Description**:  Identifier name of the current controller.
-
-
-
-
------------------
-
-### `DownloadFile.DEFAULT_OPTIONS`
-
-
-**Type**:  *Static class property. Object.*
-
-
-**Description**:  Default properties and methods that the class assigns to its instances by default.
-
-
-**Property**:  
-
-
- - `method:String`. HTTP method used for this controller.
-
-
- - `route:String`. URL path reserved for this controller.
-
-
- - `middleware:Array<Function>`. Middlewares applied to this controller.
-
-
- - `file:String`. File which is downloaded by the controller.
-
-
- - `filename:String`. Name of the file for the user's download.
-
-
- - `options:Object`. Options applied to the download of this file. To see all the options, [here](https://expressjs.com/en/api.html#res.sendFile).
-
-
- - `callback:Function`. Function called just after the file was downloaded successfully. It receives a `context:Object`, which contains contextual data.
-
-
-
-
---------------------
-
-### `downloadFile.constructor`
-
-
-**Type**:  *Class constructor. Function.*
-
-
-**Parameter**:  
-
-
- - `options:Object`. Properties and methods that should be implemented by the instances that this class produces.
-
-
-**Description**:  It only calls to the parent's constructor, passing the received `options:Object`.
-
-
-
-
---------------------
-
-### `downloadFile.onMount`
-
-
-**Type**:  *Class method. Function.*
-
-
-**Parameter**:  
-
-
- - `application:Object` Application of `express` framework.
-
-
-**Returns**:  `void`
-
-
-**Asynchronous**:  *Optional*. Optionally, the developer can convert this method to asynchronous, or return a `Promise` from it.
-
-
-**Description**:  Mounts this instance of controller into the passed `express` `application:Object`, synchronously or asynchronously.
-
-
-
-
-------------------------
-
-### `downloadFile.onError`
-
-
-**Type**:  *Class method. Function.*
-
-
-**Parameter**:  
-
-
- - `error:Error`. Error that arised. Not used.
-
-
- - `context:Object`. Object that contains contextual information.
-
-
-**Description**:  Handles response on general errors. By default, it returns a 404 error message in plain text.
-
-
-
-
-----------------------
-
-### `downloadFile.onValidate`
-
-
-**Type**:  *Class method. Function.*
-
-
-**Parameter**:  
-
-
- - `application:Object`. Application of `express` framework.
-
-
-**Returns**:  `void`
-
-
-**Throws**:  `Error`. Error thrown by any validation.
-
-
-**Description**:  Calls to the `onValidate` method of the parent, and also checks for the `this.file` self property to be a string.
-
-
-
-
--------------------
-
-### `downloadFile.onController`
-
-
-**Type**:  *Class method. Function.*
-
-
-**Parameter**:  
-
-
- - `application:Object`. Application of `express` framework.
-
-
-**Returns**:  `controller:Function`. Valid `express` controller function. The returned function must receive `request, response, next` and handle the response adecuately.
-
-
-**Description**:  Generates a controller function that will:
-  - Create a context.
-  - Download the file specified at `this.file` property:
-     - With the name provided at `this.filename`.
-     - With the options provided at `this.options`.
-  - Handle any error calling `this.onError` method.
-  - Call, on successfull operations, to the `this.callback` property.
 
 
 
@@ -676,48 +430,184 @@
 
 
 
-------------------
+----------------
 
-## `src/index.js` **(`package.json#main`)**
-
-
-**Type**:  *Object.*
+## `DownloadFile`
 
 
-**Description**:  The object returned by `require("express-composition")`.
+**Type**:  *Class. Function.*
+
+
+**Description**:  Represents a controller that downloads a specified file.
+
+
+
+
+----------------
+
+### `DownloadFile.CONTROLLER_ID`
+
+
+**Type**:  *Static class property. String.*
+
+
+**Description**:  Identifier name of the current controller.
+
+
+
+
+-----------------
+
+### `DownloadFile.DEFAULT_OPTIONS`
+
+
+**Type**:  *Static class property. Object.*
+
+
+**Description**:  Default properties and methods that the class assigns to its instances by default.
 
 
 **Property**:  
 
 
- - `AppComposer:Class`. Class used to compose `express` applications using `express-composition` controllers.
+ - `method:String`. HTTP method used for this controller.
 
 
- - `Composable:Class`. Utility class.
+ - `route:String`. URL path reserved for this controller.
 
 
- - `Controller:Class`. Utility class.
+ - `middleware:Array<Function>`. Middlewares applied to this controller.
 
 
- - `DownloadFile:Class`. Type of `express-composition` controller. It [downloads](https://expressjs.com/en/api.html#res.download) one specific file.
+ - `file:String`. File which is downloaded by the controller.
 
 
- - `DownloadDirectory:Class`. Type of `express-composition` controller. It lets the user [download](https://expressjs.com/en/api.html#res.download) files placed inside a directory, specifying the path of the file.
+ - `filename:String`. Name of the file for the user's download.
 
 
- - `EjsTemplate:Class`. Type of `express-composition` controller. It renders a specific [`ejs`](https://www.npmjs.com/package/ejs) template file.
+ - `options:Object`. Options applied to the download of this file. To see all the options, [here](https://expressjs.com/en/api.html#res.sendFile).
 
 
- - `EjsTemplateDirectory:Class`. Type of `express-composition` controller. It lets the user render [`ejs`](https://www.npmjs.com/package/ejs) template files placed inside a directory, specifying the path of the file.
+ - `callback:Function`. Function called just after the file was downloaded successfully. It receives a `context:Object`, which contains contextual data.
 
 
- - `JsFile:Class`. Type of `express-composition` controller. It uses a `js` file that exports a simple `express` controller function as the response handler.
 
 
- - `JsFunction:Class`. Type of `express-composition` controller. It uses a `js` `express` controller function as the response handler.
+--------------------
+
+### `downloadFile.constructor`
 
 
- - `StaticFiles:Class`. Type of `express-composition` controller. It returns [statically](https://expressjs.com/en/api.html#express.static) the contents of the files inside the directory specified.
+**Type**:  *Class constructor. Function.*
+
+
+**Parameter**:  
+
+
+ - `options:Object`. Properties and methods that should be implemented by the instances that this class produces.
+
+
+**Description**:  It only calls to the parent's constructor, passing the received `options:Object`.
+
+
+
+
+--------------------
+
+### `downloadFile.onMount`
+
+
+**Type**:  *Class method. Function.*
+
+
+**Parameter**:  
+
+
+ - `application:Object` Application of `express` framework.
+
+
+**Returns**:  `void`
+
+
+**Asynchronous**:  *Optional*. Optionally, the developer can convert this method to asynchronous, or return a `Promise` from it.
+
+
+**Description**:  Mounts this instance of controller into the passed `express` `application:Object`, synchronously or asynchronously.
+
+
+
+
+------------------------
+
+### `downloadFile.onError`
+
+
+**Type**:  *Class method. Function.*
+
+
+**Parameter**:  
+
+
+ - `error:Error`. Error that arised. Not used.
+
+
+ - `context:Object`. Object that contains contextual information.
+
+
+**Description**:  Handles response on general errors. By default, it returns a 404 error message in plain text.
+
+
+
+
+----------------------
+
+### `downloadFile.onValidate`
+
+
+**Type**:  *Class method. Function.*
+
+
+**Parameter**:  
+
+
+ - `application:Object`. Application of `express` framework.
+
+
+**Returns**:  `void`
+
+
+**Throws**:  `Error`. Error thrown by any validation.
+
+
+**Description**:  Calls to the `onValidate` method of the parent, and also checks for the `this.file` self property to be a string.
+
+
+
+
+-------------------
+
+### `downloadFile.onController`
+
+
+**Type**:  *Class method. Function.*
+
+
+**Parameter**:  
+
+
+ - `application:Object`. Application of `express` framework.
+
+
+**Returns**:  `controller:Function`. Valid `express` controller function. The returned function must receive `request, response, next` and handle the response adecuately.
+
+
+**Description**:  Generates a controller function that will:
+  - Create a context.
+  - Download the file specified at `this.file` property:
+     - With the name provided at `this.filename`.
+     - With the options provided at `this.options`.
+  - Handle any error calling `this.onError` method.
+  - Call, on successfull operations, to the `this.callback` property.
 
 
 
@@ -895,6 +785,52 @@ When uncached, the file is converted automatically to a `factory` pattern to gen
   - `next:Function`: an `express` `next` function.
 The `js` file, when not cached, will be freshly imported in each request.
 On errors, the method `this.onError` will be called in order to handle the erroneous request.
+
+
+
+
+------------------
+
+## `src/index.js` **(`package.json#main`)**
+
+
+**Type**:  *Object.*
+
+
+**Description**:  The object returned by `require("express-composition")`.
+
+
+**Property**:  
+
+
+ - `AppComposer:Class`. Class used to compose `express` applications using `express-composition` controllers.
+
+
+ - `Composable:Class`. Utility class.
+
+
+ - `Controller:Class`. Utility class.
+
+
+ - `DownloadFile:Class`. Type of `express-composition` controller. It [downloads](https://expressjs.com/en/api.html#res.download) one specific file.
+
+
+ - `DownloadDirectory:Class`. Type of `express-composition` controller. It lets the user [download](https://expressjs.com/en/api.html#res.download) files placed inside a directory, specifying the path of the file.
+
+
+ - `EjsTemplate:Class`. Type of `express-composition` controller. It renders a specific [`ejs`](https://www.npmjs.com/package/ejs) template file.
+
+
+ - `EjsTemplateDirectory:Class`. Type of `express-composition` controller. It lets the user render [`ejs`](https://www.npmjs.com/package/ejs) template files placed inside a directory, specifying the path of the file.
+
+
+ - `JsFile:Class`. Type of `express-composition` controller. It uses a `js` file that exports a simple `express` controller function as the response handler.
+
+
+ - `JsFunction:Class`. Type of `express-composition` controller. It uses a `js` `express` controller function as the response handler.
+
+
+ - `StaticFiles:Class`. Type of `express-composition` controller. It returns [statically](https://expressjs.com/en/api.html#express.static) the contents of the files inside the directory specified.
 
 
 
@@ -1488,6 +1424,70 @@ On errors, the method `this.onError` will be called in order to handle the erron
   - Respond with a file download to the request.
   - If an error arises, handle the error.
   - Otherwise, execute a callback.
+
+
+
+------------------
+
+## `Composable`
+
+
+**Type**:  *Class. Function.*
+
+
+**Description**:  Class to provide an easy, fast and standard way to extend classes.
+
+
+
+
+--------------------
+
+### `Composable.DEFAULT_OPTIONS`
+
+
+
+**Type**:  `Static class property. Object.`
+
+
+**Description**:  Holds the common values that will override properties and methods of each instance, by default. It is an empty object by default.
+
+
+
+
+--------------------
+
+### `Composable.create`
+
+
+**Type**:  `Static class method. Function.`
+
+
+**Returns**:  `composable:Object`
+
+
+**Description**:  Returns a new instance of the class. This static method is mainly to avoid using the `new` keyword in our code. It passes the same arguments of the `create` to the `constructor`, and returns the created instance.
+
+
+
+
+-------------------.
+
+### `composable.constructor`
+
+
+**Type**:  `Class constructor. Function.`
+
+
+**Parameter**:  
+
+
+ - `options:Object`. Properties and methods that should be implemented by the instances that this class produces.
+
+
+**Description**:  Overrides properties and methods of current instance by, in this order:
+  - `this.constructor.DEFAULT_OPTIONS:Object`. The static property.
+  - `options:Object`. The received object.
+
 
 
 
