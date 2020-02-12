@@ -6,7 +6,7 @@
   "scripts": {
     "clean:modules": "rimraf node_modules",
     "clean:coverage": "rimraf coverage .nyc_output",
-    "docs": "javadoc -i src/*.js -o docs/README.api.md -f markdown && concat docs/README.ini.md docs/README.api.md docs/README.end.md -o README.md",
+    "docs": "javadoc -i src/*.js -o docs/README.api.md -f markdown && concat docs/README.api.ini.md docs/README.api.md docs/README.api.end.md -o README.api.md",
     "test": "mocha test/*.test.js",
     "cover": "npm run clean:coverage && nyc --reporter=html mocha test/*.test.js"
   },

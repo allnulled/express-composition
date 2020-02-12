@@ -1,9 +1,9 @@
 const Middleware = require(__dirname + "/../Middleware.js");
 
-class MySqlQuery extends Middleware {
+class MySqlQueryMiddleware extends Middleware {
 
     static get MIDDLEWARE_ID() {
-        return "MySqlQuery";
+        return "MySqlQueryMiddleware";
     }
 
     static get DEFAULT_OPTIONS() {
@@ -20,4 +20,4 @@ class MySqlQuery extends Middleware {
 
 }
 
-module.exports = MySqlQuery;
+module.exports = MySqlQueryMiddleware;

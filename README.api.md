@@ -1,3 +1,8 @@
+# express-composition API Reference
+
+Here you will find all the documentation of the `express-composition` API Reference.
+
+
 
 ----------------------
 
@@ -1748,6 +1753,7 @@ On errors, the method `this.onError` will be called in order to handle the erron
 
 
 **Description**:  Generates a controller function that finds the `ejs` template file (from URL or querystring parameters) placed inside a directory, renders it, and responds with its result.
+
 
 
 

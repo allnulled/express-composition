@@ -7,7 +7,7 @@ const EjsTemplate = require(__dirname + "/EjsTemplate.js");
 const EjsTemplateDirectory = require(__dirname + "/EjsTemplateDirectory.js");
 const JsFile = require(__dirname + "/JsFile.js");
 const JsFunction = require(__dirname + "/JsFunction.js");
-const MySqlRestApi = require(__dirname + "/mysql/MySqlRestApi.js");
+// const MySqlRestApi = require(__dirname + "/mysql/MySqlRestApi.js");
 const StaticFiles = require(__dirname + "/StaticFiles.js");
 
 /**
@@ -40,6 +40,6 @@ module.exports = {
     EjsTemplateDirectory,
     JsFile,
     JsFunction,
-    MySqlRestApi,
+    // MySqlRestApi,
     StaticFiles,
 };
