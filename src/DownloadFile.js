@@ -83,10 +83,15 @@ class DownloadFile extends Controller {
      * @description Mounts this instance of controller into the passed `express` `application:Object`, synchronously or asynchronously.
      * 
      */
-    onMount(application) {
-        this.onValidate(application);
-        const {method, route, middleware} = this;
-        return application[method](route, middleware, this.onController());
+    async onMount(application) {
+        try {
+            this.onValidate(application);
+            await this.onResolveMiddleware(application);
+            const { method, route, resolvedMiddleware } = this;
+            return application[method](route, resolvedMiddleware, this.onController());
+        } catch (error) {
+            throw error;
+        }
     }
 
     /**
@@ -104,7 +109,7 @@ class DownloadFile extends Controller {
     onError(error, context) {
         return context.response.status(404).send(CommonUtilities.HTTP_RESPONSES.ERROR_404);
     }
-    
+
     /**
      * 
      * ----------------------
@@ -120,7 +125,7 @@ class DownloadFile extends Controller {
      */
     onValidate(application) {
         super.onValidate(application);
-        if(typeof this.file !== "string") {
+        if (typeof this.file !== "string") {
             throw new Error("[DownloadFile.onMount] Required property <file> as a string type.");
         }
     }
@@ -154,10 +159,10 @@ class DownloadFile extends Controller {
                 _class: this.constructor
             }
             return response.download(this.file, this.filename, this.options, error => {
-                if(error) {
+                if (error) {
                     return this.onError(error, context);
                 }
-                if(typeof this.callback === "function") {
+                if (typeof this.callback === "function") {
                     return this.callback(context);
                 }
             });

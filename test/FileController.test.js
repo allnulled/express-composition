@@ -1,16 +1,16 @@
 const { expect } = require("chai");
-const { JsFile, AppComposer } = require(__dirname + "/../src/index.js");
+const { FileController, AppComposer } = require(__dirname + "/../src/index.js");
 const express = require("express");
 const request = require("request");
 
-describe("JsFile controller test", function () {
+describe("FileController controller test", function () {
 
     const PORT_1 = 8081;
 
     it("can render strings or files", function (done) {
         this.timeout(10 * 1000);
         AppComposer.compose(express(), [
-            JsFile.create({
+            FileController.create({
                 route: "/1",
                 symbol: "!",
                 file: __dirname + "/controllers/good-afternoon.js"
@@ -38,10 +38,10 @@ describe("JsFile controller test", function () {
     });
     
     it("throws on missing file option", function (done) {
-        const errorMessage = "[JsFile.onMount] Required property <file> as a string type.";
+        const errorMessage = "[FileController.onMount] Required property <file> as a string type.";
         this.timeout(5 * 1000);
         AppComposer.compose(express(), [
-            JsFile.create({
+            FileController.create({
                 route: "/1",
                 symbol: "!",
                 file: undefined
@@ -58,14 +58,14 @@ describe("JsFile controller test", function () {
         const errorMessage = "A random error";
         this.timeout(5 * 1000);
         AppComposer.compose(express(), [
-            JsFile.create({
+            FileController.create({
                 route: "/1",
                 symbol: "!",
                 file: __dirname + "/controllers/error-thrown.js",
                 cache: false,
                 silentMode: false
             }),
-            JsFile.create({
+            FileController.create({
                 route: "/2",
                 symbol: "!",
                 file: __dirname + "/controllers/error-thrown.js",

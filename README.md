@@ -78,7 +78,7 @@ const myController = new MyController();
 
 #### Code example
 
-### `JsFile` (extends `Controller`)
+### `FileController` (extends `Controller`)
 
 #### Code example
 

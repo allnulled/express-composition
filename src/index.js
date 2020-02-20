@@ -1,13 +1,21 @@
 const AppComposer = require(__dirname + "/AppComposer.js");
+const BodyParserMiddleware = require(__dirname + "/BodyParserMiddleware.js");
 const Composable = require(__dirname + "/Composable.js");
+const CommonUtilities = require(__dirname + "/CommonUtilities.js");
 const Controller = require(__dirname + "/Controller.js");
+const CorsMiddleware = require(__dirname + "/CorsMiddleware.js");
 const DownloadFile = require(__dirname + "/DownloadFile.js");
 const DownloadDirectory = require(__dirname + "/DownloadDirectory.js");
 const EjsTemplate = require(__dirname + "/EjsTemplate.js");
 const EjsTemplateDirectory = require(__dirname + "/EjsTemplateDirectory.js");
-const JsFile = require(__dirname + "/JsFile.js");
-const JsFunction = require(__dirname + "/JsFunction.js");
+const FileController = require(__dirname + "/FileController.js");
+const SimpleController = require(__dirname + "/SimpleController.js");
+const Middleware = require(__dirname + "/Middleware.js");
+const MultipartFormMiddleware = require(__dirname + "/MultipartFormMiddleware.js");
 // const MySqlRestApi = require(__dirname + "/mysql/MySqlRestApi.js");
+const Router = require(__dirname + "/Router.js");
+const RoutingStack = require(__dirname + "/RoutingStack.js");
+const SimpleMiddleware = require(__dirname + "/SimpleMiddleware.js");
 const StaticFiles = require(__dirname + "/StaticFiles.js");
 
 /**
@@ -25,21 +33,31 @@ const StaticFiles = require(__dirname + "/StaticFiles.js");
  * @property - `DownloadDirectory:Class`. Type of `express-composition` controller. It lets the user [download](https://expressjs.com/en/api.html#res.download) files placed inside a directory, specifying the path of the file.
  * @property - `EjsTemplate:Class`. Type of `express-composition` controller. It renders a specific [`ejs`](https://www.npmjs.com/package/ejs) template file.
  * @property - `EjsTemplateDirectory:Class`. Type of `express-composition` controller. It lets the user render [`ejs`](https://www.npmjs.com/package/ejs) template files placed inside a directory, specifying the path of the file.
- * @property - `JsFile:Class`. Type of `express-composition` controller. It uses a `js` file that exports a simple `express` controller function as the response handler.
- * @property - `JsFunction:Class`. Type of `express-composition` controller. It uses a `js` `express` controller function as the response handler.
+ * @property - `FileController:Class`. Type of `express-composition` controller. It uses a `js` file that exports a simple `express` controller function as the response handler.
+ * @property - `SimpleController:Class`. Type of `express-composition` controller. It uses a `js` `express` controller function as the response handler.
+ * @property - `Middleware:Class`. Utility class.
+ * @property - `SimpleMiddleware:Class`. Type of `express-composition` middleware. It accepts normal functions as middleware.
  * @property - `StaticFiles:Class`. Type of `express-composition` controller. It returns [statically](https://expressjs.com/en/api.html#express.static) the contents of the files inside the directory specified.
  * 
  */
 module.exports = {
     AppComposer,
+    BodyParserMiddleware,
     Composable,
+    CommonUtilities,
     Controller,
+    CorsMiddleware,
     DownloadFile,
     DownloadDirectory,
     EjsTemplate,
     EjsTemplateDirectory,
-    JsFile,
-    JsFunction,
+    FileController,
+    Middleware,
+    MultipartFormMiddleware,
     // MySqlRestApi,
+    Router,
+    RoutingStack,
+    SimpleController,
+    SimpleMiddleware,
     StaticFiles,
 };

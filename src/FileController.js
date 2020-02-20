@@ -6,33 +6,33 @@ const CommonUtilities = require(__dirname + "/CommonUtilities.js");
  * 
  * ---------------------------
  * 
- * ## `JsFile`
+ * ## `FileController`
  * @type *Class. Function.*
  * @extends `Controller`
  * @description Represents a controller that uses a `js` file (which must export an `express` controller function) for responding requests. The `js` file can be cached (behaviour by default), or uncached.
  * When uncached, the file is converted automatically to a `factory` pattern to generate random controllers.
  * 
  */
-class JsFile extends Controller {
+class FileController extends Controller {
 
     /**
      * 
      * ------------------------
      * 
-     * ### `JsFile.CONTROLLER_ID`
+     * ### `FileController.CONTROLLER_ID`
      * @type *Static class property. String.*
      * @description Identifier name of the current controller.
      * 
      */
     static get CONTROLLER_ID() {
-        return "JsFile";
+        return "FileController";
     }
 
     /**
      * 
      * ------------------------
      * 
-     * ### `JsFile.DEFAULT_OPTIONS`
+     * ### `FileController.DEFAULT_OPTIONS`
      * @type *Static class property. Object.*
      * @description Default properties and methods that the class assigns to its instances by default.
      * @property `method:String`. HTTP method used for this controller.
@@ -59,7 +59,7 @@ class JsFile extends Controller {
      * 
      * ------------------------
      * 
-     * ### `JsFile.constructor`
+     * ### `FileController.constructor`
      * @type *Class constructor. Function.*
      * @parameter
      * @parameter - `options:Object`. Properties and methods that should be implemented by the instances that this class produces.
@@ -74,7 +74,7 @@ class JsFile extends Controller {
      * 
      * ------------------------
      * 
-     * ### `JsFile.onMount`
+     * ### `FileController.onMount`
      * @type *Class method. Function.*
      * @parameter 
      * @parameter - `application:Object` Application of `express` framework.
@@ -83,17 +83,22 @@ class JsFile extends Controller {
      * @description Mounts this instance of controller into the passed `express` `application:Object`, synchronously or asynchronously.
      * 
      */
-    onMount(application) {
-        this.onValidate(application);
-        const { method, route, middleware } = this;
-        return application[method](route, middleware, this.onController());
+    async onMount(application) {
+        try {
+            this.onValidate(application);
+            await this.onResolveMiddleware(application);
+            const { method, route, resolvedMiddleware } = this;
+            return application[method](route, resolvedMiddleware, this.onController());
+        } catch(error) {
+            throw error;
+        }
     }
 
     /**
      * 
      * ------------------------
      * 
-     * ### `JsFile.onError`
+     * ### `FileController.onError`
      * @type *Class method. Function.*
      * @parameter `error:Error`. Error that arised. Not used.
      * @parameter `context:Object`. Object that contains contextual information.
@@ -102,7 +107,7 @@ class JsFile extends Controller {
      */
     onError(error, context) {
         if (!this.silentMode) {
-            console.log("[JsFile.onError] Error arised:", error);
+            console.log("[FileController.onError] Error arised:", error);
         }
         return context.response.status(500).send(CommonUtilities.HTTP_RESPONSES.ERROR_500);
     }
@@ -111,7 +116,7 @@ class JsFile extends Controller {
      * 
      * ------------------------
      * 
-     * ### `JsFile.onValidate`
+     * ### `FileController.onValidate`
      * @type *Class method. Function.*
      * @parameter 
      * @parameter - `application:Object`. Application of `express` framework.
@@ -123,7 +128,7 @@ class JsFile extends Controller {
     onValidate(application) {
         super.onValidate(application);
         if (typeof this.file !== "string") {
-            throw new Error("[JsFile.onMount] Required property <file> as a string type.");
+            throw new Error("[FileController.onMount] Required property <file> as a string type.");
         }
     }
 
@@ -131,7 +136,7 @@ class JsFile extends Controller {
      * 
      * ------------------------
      * 
-     * ### `JsFile.onController`
+     * ### `FileController.onController`
      * @type *Static class*
      * @parameter 
      * @parameter - `application:Object`. Application of the `express` framework.
@@ -172,4 +177,4 @@ class JsFile extends Controller {
     };
 }
 
-module.exports = JsFile;
+module.exports = FileController;

@@ -79,10 +79,15 @@ class StaticFiles extends Controller {
      * @description Mounts this instance of controller into the passed `express` `application:Object`, synchronously or asynchronously.
      * 
      */
-    onMount(application) {
-        this.onValidate(application);
-        const {route, middleware} = this;
-        return application.use(route, middleware, this.onController());
+    async onMount(application) {
+        try {
+            this.onValidate(application);
+            await this.onResolveMiddleware(application);
+            const {route, resolvedMiddleware} = this;
+            return application.use(route, resolvedMiddleware, this.onController());
+        } catch(error) {
+            throw error;
+        }
     }
 
     /**

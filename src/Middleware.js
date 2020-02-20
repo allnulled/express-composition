@@ -1,62 +1,40 @@
 const Composable = require(__dirname + "/Composable.js");
 
-/**
- * 
- * ------------------
- * 
- * ## `Middleware`
- * @type *Class. Function.*
- * @extends `Composable`
- * @description 
- * 
- */
 class Middleware extends Composable {
 
-    /**
-     * 
-     * ------------------------
-     * 
-     * ### `Middleware.`
-     * @type * *
-     * @description 
-     * 
-     */
-    static create(options) {
-        return new this(options);
+    static get MIDDLEWARE_ID() {
+        return "Middleware";
     }
 
-    /**
-     * 
-     * ------------------------
-     * 
-     * ### `middleware.`
-     * @type * *
-     * @description 
-     * 
-     */
+    static get DEFAULT_OPTIONS() {
+        return {
+            middleware: []
+        };
+    }
+
+    static create(...args) {
+        return new this(...args);
+    }
+
     constructor(options) {
         super(options);
     }
 
-    /**
-     * 
-     * ------------------------
-     * 
-     * ### `middleware.`
-     * @type * *
-     * @description 
-     * 
-     */
-    onMiddleware() {
-        return new Promise((ok, fail) => {
-            setTimeout(() => {
-                return ok(function (request, response, next) {
-                    setTimeout(() => {
-                        return next();
-                    }, 2000);
-                });
-            }, 2000);
-        });
+    onResolve(controller, application) {
+        // this method can be asynchronous
+        return this.middleware;
+    }
+
+    onCreateContext(application, controller, request, response, next) {
+        return {
+            application,
+            controller,
+            request,
+            response,
+            next,
+            _instance: this,
+            _class: this.constructor
+        };
     }
 
 }

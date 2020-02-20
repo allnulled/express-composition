@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const { DownloadDirectory, JsFunction, AppComposer } = require(__dirname + "/../src/index.js");
+const { DownloadDirectory, SimpleController, AppComposer } = require(__dirname + "/../src/index.js");
 const CommonUtilities = require(__dirname + "/../src/CommonUtilities.js");
 const fs = require("fs");
 const express = require("express");

@@ -1,16 +1,16 @@
 const { expect } = require("chai");
-const { JsFunction, AppComposer } = require(__dirname + "/../src/index.js");
+const { SimpleController, AppComposer } = require(__dirname + "/../src/index.js");
 const express = require("express");
 const request = require("request");
 
-describe("JsFunction controller test", function () {
+describe("SimpleController controller test", function () {
 
     const PORT_1 = 8081;
 
     it("can respond a string", function (done) {
         this.timeout(10 * 1000);
         AppComposer.compose(express(), [
-            JsFunction.create({
+            SimpleController.create({
                 route: "/1",
                 customMessage: "Hello, user!",
                 function: (context, request, response, next) => {
@@ -36,15 +36,16 @@ describe("JsFunction controller test", function () {
                 return;
             });
         }).catch(error => {
+            console.log(error);
             expect(true).to.equal(false);
         });
     });
 
     it("throws on missing function option", function (done) {
-        const errorMessage = "[JsFunction.onMount] Required property <function> as a function type.";
+        const errorMessage = "[SimpleController.onMount] Required property <function> as a function type.";
         this.timeout(5 * 1000);
         AppComposer.compose(express(), [
-            JsFunction.create({
+            SimpleController.create({
                 route: "/1",
                 function: undefined
             })

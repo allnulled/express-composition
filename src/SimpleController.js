@@ -4,33 +4,33 @@ const Controller = require(__dirname + "/Controller.js");
  * 
  * ----------------
  * 
- * ## `JsFunction`
+ * ## `SimpleController`
  * @type *Class. Function.*
  * @extends `Controller`
  * @description Represents a controller that uses a `js` function to directly handle requests.
  * 
  * 
  */
-class JsFunction extends Controller {
+class SimpleController extends Controller {
 
     /**
      * 
      * ------------------------
      * 
-     * ### `JsFunction.CONTROLLER_ID`
+     * ### `SimpleController.CONTROLLER_ID`
      * @type *Static class property. String.*
      * @description Identifier name of the current controller.
      * 
      */
     static get CONTROLLER_ID() {
-        return "JsFunction";
+        return "SimpleController";
     }
 
     /**
      * 
      * ------------------------
      * 
-     * ### `JsFunction.DEFAULT_OPTIONS`
+     * ### `SimpleController.DEFAULT_OPTIONS`
      * @type *Static class property. Object.*
      * @description Default properties and methods that the class assigns to its instances by default.
      * @property `method:String`. HTTP method used for this controller.
@@ -55,7 +55,7 @@ class JsFunction extends Controller {
      * 
      * ------------------------
      * 
-     * ### `jsFunction.constructor`
+     * ### `SimpleController.constructor`
      * @type *Class constructor. Function.*
      * @parameter
      * @parameter - `options:Object`. Properties and methods that should be implemented by the instances that this class produces.
@@ -70,7 +70,7 @@ class JsFunction extends Controller {
      * 
      * ------------------------
      * 
-     * ### `jsFunction.onMount`
+     * ### `SimpleController.onMount`
      * @type *Class method. Function.*
      * @parameter 
      * @parameter - `application:Object` Application of `express` framework.
@@ -79,17 +79,22 @@ class JsFunction extends Controller {
      * @description Mounts this instance of controller into the passed `express` `application:Object`, synchronously or asynchronously.
      * 
      */
-    onMount(application) {
-        this.onValidate(application);
-        const {method, route, middleware} = this;
-        return application[method](route, middleware, this.onController());
+    async onMount(application) {
+        try {
+            this.onValidate(application);
+            await this.onResolveMiddleware(application);
+            const {method, route, resolvedMiddleware} = this;
+            return application[method](route, resolvedMiddleware, this.onController());
+        } catch(error) {
+            throw error;
+        }
     }
 
     /**
      * 
      * ------------------------
      * 
-     * ### `jsFunction.onValidate`
+     * ### `SimpleController.onValidate`
      * @type *Class method. Function.*
      * @parameter 
      * @parameter - `application:Object`. Application of `express` framework.
@@ -101,7 +106,7 @@ class JsFunction extends Controller {
     onValidate(application) {
         super.onValidate(application);
         if(typeof this.function !== "function") {
-            throw new Error("[JsFunction.onMount] Required property <function> as a function type.");
+            throw new Error("[SimpleController.onMount] Required property <function> as a function type.");
         }
     }
 
@@ -109,7 +114,7 @@ class JsFunction extends Controller {
      * 
      * ------------------------
      * 
-     * ### `jsFunction.onController`
+     * ### `SimpleController.onController`
      * @type *Static class*
      * @parameter 
      * @parameter - `application:Object`. Application of the `express` framework.
@@ -133,4 +138,4 @@ class JsFunction extends Controller {
 
 }
 
-module.exports = JsFunction;
+module.exports = SimpleController;

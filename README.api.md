@@ -619,7 +619,7 @@ Here you will find all the documentation of the `express-composition` API Refere
 
 ---------------------------
 
-## `JsFile`
+## `FileController`
 
 
 **Type**:  *Class. Function.*
@@ -636,7 +636,7 @@ When uncached, the file is converted automatically to a `factory` pattern to gen
 
 ------------------------
 
-### `JsFile.CONTROLLER_ID`
+### `FileController.CONTROLLER_ID`
 
 
 **Type**:  *Static class property. String.*
@@ -649,7 +649,7 @@ When uncached, the file is converted automatically to a `factory` pattern to gen
 
 ------------------------
 
-### `JsFile.DEFAULT_OPTIONS`
+### `FileController.DEFAULT_OPTIONS`
 
 
 **Type**:  *Static class property. Object.*
@@ -680,7 +680,7 @@ When uncached, the file is converted automatically to a `factory` pattern to gen
 
 ------------------------
 
-### `JsFile.constructor`
+### `FileController.constructor`
 
 
 **Type**:  *Class constructor. Function.*
@@ -699,7 +699,7 @@ When uncached, the file is converted automatically to a `factory` pattern to gen
 
 ------------------------
 
-### `JsFile.onMount`
+### `FileController.onMount`
 
 
 **Type**:  *Class method. Function.*
@@ -724,7 +724,7 @@ When uncached, the file is converted automatically to a `factory` pattern to gen
 
 ------------------------
 
-### `JsFile.onError`
+### `FileController.onError`
 
 
 **Type**:  *Class method. Function.*
@@ -743,7 +743,7 @@ When uncached, the file is converted automatically to a `factory` pattern to gen
 
 ------------------------
 
-### `JsFile.onValidate`
+### `FileController.onValidate`
 
 
 **Type**:  *Class method. Function.*
@@ -768,7 +768,7 @@ When uncached, the file is converted automatically to a `factory` pattern to gen
 
 ------------------------
 
-### `JsFile.onController`
+### `FileController.onController`
 
 
 **Type**:  *Static class*
@@ -829,10 +829,10 @@ On errors, the method `this.onError` will be called in order to handle the erron
  - `EjsTemplateDirectory:Class`. Type of `express-composition` controller. It lets the user render [`ejs`](https://www.npmjs.com/package/ejs) template files placed inside a directory, specifying the path of the file.
 
 
- - `JsFile:Class`. Type of `express-composition` controller. It uses a `js` file that exports a simple `express` controller function as the response handler.
+ - `FileController:Class`. Type of `express-composition` controller. It uses a `js` file that exports a simple `express` controller function as the response handler.
 
 
- - `JsFunction:Class`. Type of `express-composition` controller. It uses a `js` `express` controller function as the response handler.
+ - `SimpleController:Class`. Type of `express-composition` controller. It uses a `js` `express` controller function as the response handler.
 
 
  - `StaticFiles:Class`. Type of `express-composition` controller. It returns [statically](https://expressjs.com/en/api.html#express.static) the contents of the files inside the directory specified.
@@ -842,7 +842,7 @@ On errors, the method `this.onError` will be called in order to handle the erron
 
 ----------------
 
-## `JsFunction`
+## `SimpleController`
 
 
 **Type**:  *Class. Function.*
@@ -859,7 +859,7 @@ On errors, the method `this.onError` will be called in order to handle the erron
 
 ------------------------
 
-### `JsFunction.CONTROLLER_ID`
+### `SimpleController.CONTROLLER_ID`
 
 
 **Type**:  *Static class property. String.*
@@ -872,7 +872,7 @@ On errors, the method `this.onError` will be called in order to handle the erron
 
 ------------------------
 
-### `JsFunction.DEFAULT_OPTIONS`
+### `SimpleController.DEFAULT_OPTIONS`
 
 
 **Type**:  *Static class property. Object.*
@@ -900,7 +900,7 @@ On errors, the method `this.onError` will be called in order to handle the erron
 
 ------------------------
 
-### `jsFunction.constructor`
+### `SimpleController.constructor`
 
 
 **Type**:  *Class constructor. Function.*
@@ -919,7 +919,7 @@ On errors, the method `this.onError` will be called in order to handle the erron
 
 ------------------------
 
-### `jsFunction.onMount`
+### `SimpleController.onMount`
 
 
 **Type**:  *Class method. Function.*
@@ -944,7 +944,7 @@ On errors, the method `this.onError` will be called in order to handle the erron
 
 ------------------------
 
-### `jsFunction.onValidate`
+### `SimpleController.onValidate`
 
 
 **Type**:  *Class method. Function.*
@@ -969,7 +969,7 @@ On errors, the method `this.onError` will be called in order to handle the erron
 
 ------------------------
 
-### `jsFunction.onController`
+### `SimpleController.onController`
 
 
 **Type**:  *Static class*

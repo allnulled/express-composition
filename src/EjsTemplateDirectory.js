@@ -85,13 +85,18 @@ class EjsTemplateDirectory extends Controller {
      * @description Mounts this instance of controller into the passed `express` `application:Object`, synchronously or asynchronously.
      * 
      */
-    onMount(application) {
-        this.onValidate(application);
-        const { method, route, middleware } = this;
-        if (typeof this.qsFile === "string") {
-            return application[method](route, middleware, this.onController());
-        } else {
-            return application[method](route + "/*", middleware, this.onController());
+    async onMount(application) {
+        try {
+            this.onValidate(application);
+            await this.onResolveMiddleware(application);
+            const { method, route, resolvedMiddleware } = this;
+            if (typeof this.qsFile === "string") {
+                return application[method](route, resolvedMiddleware, this.onController());
+            } else {
+                return application[method](route + "/*", resolvedMiddleware, this.onController());
+            }
+        } catch(error) {
+            throw error;
         }
     }
 

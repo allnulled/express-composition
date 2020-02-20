@@ -1,4 +1,5 @@
 const Composable = require(__dirname + "/Composable.js");
+const Middleware = require(__dirname + "/Middleware.js");
 
 /**
  * 
@@ -78,6 +79,24 @@ class Controller extends Composable {
      */
     onMount(application) {
         throw new Error("[express-composition][Controller.onMount] Method <onMount> must be overriden.");
+    }
+
+    async onResolveMiddleware(application) {
+        this.resolvedMiddleware = [];
+        const middlewares = [].concat(this.middleware);
+        for(let index = 0; index < middlewares.length; index++) {
+            const middleware = middlewares[index];
+            if(middleware instanceof Middleware) {
+                const result = middleware.onResolve(this, application);
+                let resolved = result;
+                if(result instanceof Promise) {
+                    resolved = await result;
+                }
+                this.resolvedMiddleware.push(resolved);
+            } else {
+                this.resolvedMiddleware.push(middleware);
+            }
+        }
     }
 
 }
